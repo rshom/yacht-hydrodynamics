@@ -51,23 +51,23 @@ docx:	clean $(DOCX)
 ## `make html` is the command.
 %.html:	%.pmd
 	pweave -f pandoc $<
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o $@ $*.md
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o ./results/$@ $*.md
 	rm -f $*.md
 
 ## Same goes for the other file types
 %.tex:	%.pmd
 	pweave -f pandoc $<
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o $@ $*.md
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o ./results/$@ $*.md
 	rm -f $*.md
 
 %.pdf:	%.pmd
 	pweave -f pandoc $<
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o $@ $*.md
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o ./results/$@ $*.md
 	rm -f $*.md
 
 %.docx:	%.pmd
 	pweave -f pandoc $<	
-	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o $@ $*.md
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o ./results/$@ $*.md
 	rm -f $*.md
 
 
@@ -84,19 +84,19 @@ clean:
 # ## How to produce a .html file corresponding to each .pmd in the directory. Run when
 # ## `make html` is the command.
 # %.html:	%.pmd
-# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --template=$(PREFIX)/templates/html.template --css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --template=$(PREFIX)/templates/html.template --css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o ./results/$@ $<
 
 
 # ## Same goes for the other file types
 # %.tex:	%.pmd
-# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/ajps.csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/ajps.csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o ./results/$@ $<
 
 
 # %.pdf:	%.pmd
-# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o ./results/$@ $<
 
 # %.docx:	%.pmd
-# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -s -S --filter pandoc-crossref --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -s -S --filter pandoc-crossref --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o ./results/$@ $<
 
 
 # clean:

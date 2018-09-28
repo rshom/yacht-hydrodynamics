@@ -54,14 +54,13 @@ At the beginning of this text, there is a hidden code block which pulls in sever
 
 ## Data and Results
 
-Data should be placed into CSV files in ./data directory. The python module pandas will allow any CSV to be imported as a dataframe which can be manipulated similar to a Excel preadsheet
+Data should be placed into CSV files in ./data directory. The python module pandas will allow any CSV to be imported as a dataframe which can be manipulated similar to a Excel preadsheet. Often while working I will open a live python prompt in another Emacs buffer to test out commands and look at the data live.
 
 ```{python, echo=False}
-
 	
 ```
 
-Once that data is pulled in we can manipulate it as necessary. Generally for reports we do not need to show our source code, so echo is kept to 
+Once that data is pulled in we can manipulate it as necessary. Generally for reports we do not need to show our source code, so echo is set to false. 
 
 ```{python,fig:myplot, echo=False}
 x = np.arange(0,100,1)
