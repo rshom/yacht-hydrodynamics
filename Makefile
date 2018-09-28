@@ -25,7 +25,7 @@ PREFIX = /home/russ/.pandoc
 
 ## Location of your working bibliography file
 #BIB = /home/russ/Dropbox/2intel/bibs/pandoc.bib
-BIB = ./references.bib
+BIB = ./ref.bib
 
 ## CSL stylesheet (located in the csl folder of the PREFIX directory).
 CSL = apsa

@@ -1,15 +1,28 @@
 ---
-title: test document
-author: russ
+title: Paper Starter Kit Demo
+author: Russell Shomberg
+date: \today
+abstract: Demonstration of using markdown with pweave to generate nice looking reports.
 ---
-
-## This is a test
 
 ```{python, echo=False}
 import numpy as np
 from matplotlib import pyplot as plt
+
 plt.style.use('ggplot')
 ```
+
+## Introduction
+
+## Methods
+
+## Results
+
+## Discussions
+
+## Conclusions
+
+## References
 
 ```{python,myplot}
 x = np.arange(0,100,1)
