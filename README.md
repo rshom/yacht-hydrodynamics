@@ -1,6 +1,12 @@
-# The Plain Person's Guide to Plain Text Social Science
-## Kieran Healy
+# Paper Starter Kit
+## Russell Shomberg
 
-###  About
+### About
 
-This repository contains a `.md` file to create "[The Plain Person's Guide to Plain Text Social Science](http://kieranhealy.org/files/misc/plain-person-text.pdf)", a guide to software tools, aimed at graduate students in the social sciences. It is a revised version of [Choosing Your Workflow Applications](http://www.kieranhealy.org/files/papers/workflow-apps.pdf). The main changes are updated links, additional *obiter dicta*, a stronger emphasis on RMarkdown, `knitr`, and `pandoc`, and a conversion of the base document format to Markdown (and away from `org-mode`). If you have the tools described in here, along with the templates and configuration files [described here](http://www.kieranhealy.org/resources.html), then the `Makefile` can create a nice `.pdf`, `.tex`, or `.html` file for you in a single step.
+This is boilerplate code for writing a engineering paper using Markdown combined with python. Clone this repo and replace the paper-starter-kit.pmd with your own pmd or edit that file directly. ```make all``` or ```make $(fileformat)``` will run the code and produce the polished output documents.
+
+### Credit
+
+Almost everything here was stolen from Kieran Healy's "[The Plain Person's Guide to Plain Text Social Science](http://kieranhealy.org/files/misc/plain-person-text.pdf)", a guide to software tools, aimed at graduate students in the social sciences. 
+
+He uses R markdown, so I had to modify the code a bit to work with pweave

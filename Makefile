@@ -15,26 +15,27 @@
 
 ## Extension (e.g. md, markdown, mdown).
 ## for all markdown files in the directory
-MEXT = md
+MEXT = pmd
 
 ## Variable for all markdown files in the working directory
 SRC = $(wildcard *.$(MEXT))
 
 ## Location of Pandoc support files.
-PREFIX = /Users/kjhealy/.pandoc
+PREFIX = /home/russ/.pandoc
 
 ## Location of your working bibliography file
-BIB = /Users/kjhealy/Documents/bibs/socbib-pandoc.bib
+#BIB = /home/russ/Dropbox/2intel/bibs/pandoc.bib
+BIB = ./references.bib
 
 ## CSL stylesheet (located in the csl folder of the PREFIX directory).
 CSL = apsa
 
 
-## Dependencies: .pdf depends on .md, .html depends on .md, etc
-PDFS=$(SRC:.md=.pdf)
-HTML=$(SRC:.md=.html)
-TEX=$(SRC:.md=.tex)
-DOCX=$(SRC:.md=.docx)
+## Dependencies: .pdf depends on .pmd, .html depends on .pmd, etc
+PDFS=$(SRC:.pmd=.pdf)
+HTML=$(SRC:.pmd=.html)
+TEX=$(SRC:.pmd=.tex)
+DOCX=$(SRC:.pmd=.docx)
 
 ## Rules -- make all, make pdf, make html: first call the `clean` rule (see below),
 ## then the filetype rule.
@@ -46,25 +47,59 @@ tex:	clean $(TEX)
 docx:	clean $(DOCX)
 
 ## The actual commands.
-## How to produce a .html file corresponding to each .md in the directory. Run when
+## How to produce a .html file corresponding to each .pmd in the directory. Run when
 ## `make html` is the command.
-%.html:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --template=$(PREFIX)/templates/html.template --css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
-
+%.html:	%.pmd
+	pweave -f pandoc $<
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o $@ $*.md
+	rm -f $*.md
 
 ## Same goes for the other file types
-%.tex:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/ajps.csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+%.tex:	%.pmd
+	pweave -f pandoc $<
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o $@ $*.md
+	rm -f $*.md
 
+%.pdf:	%.pmd
+	pweave -f pandoc $<
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o $@ $*.md
+	rm -f $*.md
 
-%.pdf:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
-
-%.docx:	%.md
-	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -s -S --filter pandoc-crossref --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+%.docx:	%.pmd
+	pweave -f pandoc $<	
+	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -o $@ $*.md
+	rm -f $*.md
 
 
 clean:
 	rm -f *.html *.pdf *.tex *.aux *.log *.docx
+	rm -f figures/*
 
 .PHONY: clean
+
+# Below is the original code which I stole
+# It includes stuff for templates which I am not yet using
+
+# ## The actual commands.
+# ## How to produce a .html file corresponding to each .pmd in the directory. Run when
+# ## `make html` is the command.
+# %.html:	%.pmd
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -w html -S --template=$(PREFIX)/templates/html.template --css=$(PREFIX)/marked/kultiad-serif.css --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+
+
+# ## Same goes for the other file types
+# %.tex:	%.pmd
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -w latex -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/ajps.csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+
+
+# %.pdf:	%.pmd
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block --listings -s -S --latex-engine=pdflatex --template=$(PREFIX)/templates/latex.template --filter pandoc-crossref --filter pandoc-citeproc --csl=$(PREFIX)/csl/$(CSL).csl --filter pandoc-citeproc-preamble --bibliography=$(BIB) -o $@ $<
+
+# %.docx:	%.pmd
+# 	pandoc -r markdown+simple_tables+table_captions+yaml_metadata_block -s -S --filter pandoc-crossref --csl=$(PREFIX)/csl/$(CSL).csl --bibliography=$(BIB) -o $@ $<
+
+
+# clean:
+# 	rm -f *.html *.pdf *.tex *.aux *.log *.docx
+
+# .PHONY: clean
