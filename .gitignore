@@ -1,6 +1,7 @@
 .gitignore
 *~
 *.pdf
+*.tex
 *.html
 *.docx
 ./figures/*
