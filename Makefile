@@ -63,7 +63,7 @@ docx:	clean $(DOCX)
 %.pdf:	%.pmd
 	pweave -f pandoc $<
 	pandoc --filter pandoc-crossref --filter pandoc-citeproc --bibliography=$(BIB) -s -o ./results/$@ $*.md
-	rm -f $*.md
+	#rm -f $*.md
 
 %.docx:	%.pmd
 	pweave -f pandoc $<	
@@ -74,6 +74,7 @@ docx:	clean $(DOCX)
 clean:
 	rm -f *.html *.pdf *.tex *.aux *.log *.docx
 	rm -f figures/*
+	rm -f results/*
 
 .PHONY: clean
 
