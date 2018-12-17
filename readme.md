@@ -1,8 +1,12 @@
 ---
 title: Yacht Hydrodynamics
 author: Russell Shomberg
-date:
+date:2018-12-17
 ---
+
+Presentation Link
+https://docs.google.com/presentation/d/1ESI_0sI4K87SRQ6SmzNrl1oyCXkAXB79v7JtpgvKdkk/edit?usp=sharing
+
 
 ## Data Set Contains the following
 
